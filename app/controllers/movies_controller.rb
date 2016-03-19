@@ -12,8 +12,8 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    @all_ratings = ['G', 'PG','PG=13','R']
-    if params[:rating].nil?
+    @all_ratings = ['G', 'PG','PG=13','NC-17','R']
+    if params[:ratings].nil?
       @movies = Movie.order params[:sort_by]
     else
       array_ratings = params[:ratings].keys
