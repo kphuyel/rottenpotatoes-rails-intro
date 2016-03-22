@@ -34,6 +34,7 @@ class MoviesController < ApplicationController
 
     session[:sort] = @sort
     session[:ratings] = @ratings
+  end
 end
 
   def new
