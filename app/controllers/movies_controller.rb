@@ -15,12 +15,7 @@ class MoviesController < ApplicationController
     session[:selected_order] ||= ""
     @classHilite = {"title" =>"","release_date"=>""}
     
-    if(params.size == 2)
-      params[:order]   ||= session[:selected_order] 
-      params[:ratings] ||= session[:selected_ratings]
-      redirect_to movies_path(params) and return
-    end
-    
+  
     @all_ratings = Movie.getRatings
     if !params[:ratings].nil?
       session[:selected_ratings] = params[:ratings]
@@ -33,14 +28,7 @@ class MoviesController < ApplicationController
     if !params[:order].nil?
       session[:selected_order] = params[:order]
     end
-    
-    order = (session[:selected_order] == "")?"title":session[:selected_order]
-    if session[:selected_order] != ""
-      @classHilite = {session[:selected_order]=>"hilite"}
-    end
-    
-    #Gets all the movies order by 'order' (Default is title)
-    @movies = Movie.order("#{order}")
+  
     
     if(@selected_ratings.keys.any?)
       @movies = @movies.where(:rating => @selected_ratings.keys)
