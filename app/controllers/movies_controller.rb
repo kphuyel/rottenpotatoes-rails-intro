@@ -11,8 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    
-    reirect = true
+   redirect = true
 
     @sort = params[:sort] ? params[:sort] : session[:sort]
 
