@@ -11,28 +11,15 @@ class MoviesController < ApplicationController
   end
 
   def index
-    session[:selected_ratings] ||= Hash.new
-    session[:selected_order] ||= ""
-    @classHilite = {"title" =>"","release_date"=>""}
-    
-  
-    @all_ratings = Movie.getRatings
-    if !params[:ratings].nil?
-      session[:selected_ratings] = params[:ratings]
-    elsif !params[:commit].nil? 
-      session[:selected_ratings] = Hash.new
+    session 
+    @movies = Movie.all
+    @all_ratings =['G','PG','PG-13','R']
+    if params[:ratings].nil?
+    @movies = Movie.order params[:sort_by]
+    else
+    array_ratings = params[:ratings].keys
+    @movies = Movie.where(rating: array_ratings).order params[:sort_by]
     end
-    
-    @selected_ratings = session[:selected_ratings]  
-    
-    if !params[:order].nil?
-      session[:selected_order] = params[:order]
-    end
-  
-    
-    if(@selected_ratings.keys.any?)
-      @movies = @movies.where(:rating => @selected_ratings.keys)
-    end  
   end
 
   def new
