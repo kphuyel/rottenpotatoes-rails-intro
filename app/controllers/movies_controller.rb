@@ -12,6 +12,12 @@ class MoviesController < ApplicationController
 
   def index
     
+    redirect = true
+
+    @sort = params[:sort] ? params[:sort] : session[:sort]
+
+    @ratings = params[:ratings]? params[:ratings] : session[:ratings]
+    
     @movies = Movie.all
     @all_ratings =['G','PG','PG-13','R']
     if params[:ratings].nil?
@@ -19,15 +25,6 @@ class MoviesController < ApplicationController
     else
     array_ratings = params[:ratings].keys
     @movies = Movie.where(rating: array_ratings).order params[:sort_by]
-    end
-    
-    if session[:ratings] || session[:sort]
-      case session[:sort]
-      when 'title'
-        @title_hilite = 'hilite'
-      when 'release_date'
-        @release_hilite = 'hilite'
-      end
     end
   end
 
