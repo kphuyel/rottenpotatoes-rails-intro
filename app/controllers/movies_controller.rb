@@ -11,7 +11,6 @@ class MoviesController < ApplicationController
   end
 
   def index
-    session 
     @movies = Movie.all
     @all_ratings =['G','PG','PG-13','R']
     if params[:ratings].nil?
