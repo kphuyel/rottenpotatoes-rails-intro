@@ -20,6 +20,15 @@ class MoviesController < ApplicationController
     array_ratings = params[:ratings].keys
     @movies = Movie.where(rating: array_ratings).order params[:sort_by]
     end
+    
+    if session[:ratings] || session[:sort]
+      case session[:sort]
+      when 'title'
+        @title_hilite = 'hilite'
+      when 'release_date'
+        @release_hilite = 'hilite'
+      end
+    end
   end
 
   def new
